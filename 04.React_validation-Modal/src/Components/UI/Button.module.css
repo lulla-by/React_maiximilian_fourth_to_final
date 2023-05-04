@@ -1,0 +1,24 @@
+.button {
+  width: 120px;
+  height: 30px;
+  padding: 2.5px 0;
+  text-align: center;
+  font: inherit;
+  font-weight: 600;
+  border-radius: 5px;
+  border: 1px solid greenyellow;;
+  background: greenyellow;;
+  color: black;
+  /* padding: 0.25rem 1rem; */
+  cursor: pointer;
+}
+
+.button:hover,
+.button:active {
+  background: greenyellow;;
+  border-color: greenyellow;;
+}
+
+.button:focus {
+  outline: none;
+}
