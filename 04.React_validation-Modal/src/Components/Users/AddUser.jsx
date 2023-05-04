@@ -8,15 +8,25 @@ const AddUser = (props) => {
   //구조분해할당
   let [enteredUserName, setEnteredUserName] = useState("");
   let [enteredUserAge, setEnteredUserAge] = useState("");
+  const [error, setError] = useState();
+
   const addUserHandler = (e) => {
     e.preventDefault();
     if (
       enteredUserName.trim().length === 0 ||
       enteredUserAge.trim().length === 0
     ) {
+      setError({
+        title: "invalid input",
+        message: "Please enter a valid name and age(non-empty values).",
+      });
       return;
     }
     if (enteredUserAge < 1) {
+      setError({
+        title: "invalid age",
+        message: "Please enter a valid age( age > 0).",
+      });
       return;
     }
     let userData = {
@@ -35,9 +45,13 @@ const AddUser = (props) => {
     setEnteredUserAge(e.target.value);
   };
 
+  const errorHandeler = () =>
+  {
+    setError(null)
+  }
   return (
     <>
-    <ErrorModal title ={"에러 발생!"} message={"에러가 발생했습니다!"}/>
+      {error && <ErrorModal title={error.title} message={error.message} errorHandeler = {errorHandeler}/>}
       <Card className={classes.input}>
         <form onSubmit={addUserHandler}>
           <label htmlFor="username">User Name</label>
