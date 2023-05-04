@@ -9,6 +9,12 @@ const AddUser = (props) => {
   let [enteredUserAge, setEnteredUserAge] = useState("");
   const addUserHandler = (e) => {
     e.preventDefault();
+    if(enteredUserName.trim().length === 0 || enteredUserAge.trim().length === 0){
+      return ;
+    }
+    if(enteredUserAge < 1) {
+      return ;
+    }
     console.log(enteredUserName, enteredUserAge);
     setEnteredUserAge("");
     setEnteredUserName("");
