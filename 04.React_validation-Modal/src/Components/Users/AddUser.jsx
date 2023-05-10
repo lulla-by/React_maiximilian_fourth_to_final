@@ -3,6 +3,7 @@ import Card from "../UI/Card";
 import Button from "../UI/Button";
 import classes from "./AddUser.module.css";
 import ErrorModal from "../UI/ErrorModal";
+import Wrapper from "../Helpers/Wrapper";
 
 const AddUser = (props) => {
   //구조분해할당
@@ -50,7 +51,7 @@ const AddUser = (props) => {
     setError(null)
   }
   return (
-    <>
+    <Wrapper>
       {error && <ErrorModal title={error.title} message={error.message} errorHandeler = {errorHandeler}/>}
       <Card className={classes.input}>
         <form onSubmit={addUserHandler}>
@@ -73,7 +74,7 @@ const AddUser = (props) => {
           </Button>
         </form>
       </Card>
-    </>
+    </Wrapper>
   );
 };
 
