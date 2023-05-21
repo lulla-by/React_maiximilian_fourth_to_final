@@ -46,8 +46,8 @@ const Login = (props) => {
   // const [enteredEmail, setEnteredEmail] = useState('');
   // const [emailIsValid, setEmailIsValid] = useState();
   
-  const [enteredPassword, setEnteredPassword] = useState('');
-  const [passwordIsValid, setPasswordIsValid] = useState();
+  // const [enteredPassword, setEnteredPassword] = useState('');
+  // const [passwordIsValid, setPasswordIsValid] = useState();
   const [formIsValid, setFormIsValid] = useState(false);
 
   //                                  useReducer(함수, 리듀서의 기본 state 객체)
@@ -77,6 +77,7 @@ const Login = (props) => {
     setFormIsValid(
       event.target.value.includes('@') && passwordState.value.trim().length > 6
     );
+    // 여전히 폼 유효성을 다른 state에서 도출함 => 여기서는 passwordState => 코드가 최적의 상태는 아님
   };
 
   const passwordChangeHandler = (event) => {
@@ -86,6 +87,7 @@ const Login = (props) => {
     setFormIsValid(
      emailState.value.includes('@')  && event.target.value.trim().length > 6
     );
+    // 여전히 폼 유효성을 다른 state에서 도출함 => 여기서는 emailState => 코드가 최적의 상태는 아님
   };
 
 
