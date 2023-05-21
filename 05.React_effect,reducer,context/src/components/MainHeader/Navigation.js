@@ -1,12 +1,13 @@
-import React from "react";
+import React,{useContext} from "react";
 
 import classes from "./Navigation.module.css";
 import AuthContext from "../../store/auth-context";
 
 const Navigation = (props) => {
+  // 사용하려는 컨텍스트를 가리키는 포인터 제공 => 여기서는 AuthContext
+  const ctx =useContext(AuthContext)
   return (
-    <AuthContext.Consumer>
-      {(ctx) => {
+
         <nav className={classes.nav}>
           <ul>
             {ctx.isLoggedIn && (
@@ -25,10 +26,9 @@ const Navigation = (props) => {
               </li>
             )}
           </ul>
-        </nav>;
-      }}
-    </AuthContext.Consumer>
-  );
-};
+        </nav>
+        )
+      }
+
 
 export default Navigation;
