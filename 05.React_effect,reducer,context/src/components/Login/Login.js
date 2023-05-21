@@ -40,7 +40,6 @@ const passWordReducer =(state,action) => {
 
 
 const Login = (props) => {
-  console.log(props)
 
 
   // const [enteredEmail, setEnteredEmail] = useState('');
@@ -54,19 +53,28 @@ const Login = (props) => {
   const [emailState, dispatchEmail] = useReducer(emailReducer,{value:"",isValid:undefined})
   const [passwordState, dispatchPassword] = useReducer(passWordReducer,{value:"",isValid:undefined })
 
-  // useEffect(()=>{
-  //   const identifier = setTimeout(() => {
-  //     console.log("1")
-  //     setFormIsValid(
-  //       enteredEmail.includes('@') && enteredPassword.trim().length > 6
-  //     );
-  //   }, 500);
-  //   console.log("2")
-  //   return()=>{
-  //     console.log("3")
-  //     clearTimeout(identifier)
-  //   }
-  // },[enteredEmail,enteredPassword])
+
+  // 구조분해할당 + alias assignment
+  const {isValid:emailIsValid} = emailState
+  const {isValid:passwordIsValid} = passwordState
+
+  useEffect(()=>{
+    const identifier = setTimeout(() => {
+      console.log("checking for validity");
+      // console.log("이메일 유효성",emailIsValid)
+      setFormIsValid(
+        //setFormIsvalid를 호출하는 좋은 방법
+        emailState.isValid && passwordState.isValid
+      );
+    }, 500);
+    return()=>{
+      console.log("CLEANUP")
+      clearTimeout(identifier)
+    }
+
+    // 각 객체의 특정한 값들(isValid)를 구조분해할당으로 추출해서 해당 부분을 종속성으로 추가
+    // 이메일과 패스워드의 true false값이 바뀔때만 해당 사이드이펙트가 실행됨
+  },[emailIsValid,passwordIsValid])
 
 
   const emailChangeHandler = (event) => {
@@ -74,9 +82,9 @@ const Login = (props) => {
     // 필드는 대부분 명명된 type, val은 payload
     dispatchEmail({type:"USER_INPUT",val:event.target.value});
 
-    setFormIsValid(
-      event.target.value.includes('@') && passwordState.value.trim().length > 6
-    );
+    // setFormIsValid(
+    //   event.target.value.includes('@') && passwordState.value.trim().length > 6
+    // );
     // 여전히 폼 유효성을 다른 state에서 도출함 => 여기서는 passwordState => 코드가 최적의 상태는 아님
   };
 
@@ -84,9 +92,9 @@ const Login = (props) => {
     // setEnteredPassword(event.target.value);
     dispatchPassword({type:"USER_INPUT",val:event.target.value})
     
-    setFormIsValid(
-     emailState.value.includes('@')  && event.target.value.trim().length > 6
-    );
+    // setFormIsValid(
+    //  emailState.value.includes('@')  && event.target.value.trim().length > 6
+    // );
     // 여전히 폼 유효성을 다른 state에서 도출함 => 여기서는 emailState => 코드가 최적의 상태는 아님
   };
 
