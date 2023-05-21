@@ -25,8 +25,8 @@ const emailReducer = (state,action) =>{
 
 
 const passWordReducer =(state,action) => {
-  console.log("state",state)
-  console.log("action",action)
+  //return값이 해당 리듀서의 state로 반환됨, 여기서는 54번재 줄의 emailState값
+  
   if(action.type === "USER_INPUT"){
     return {value:action.val,isValid:action.val.trim().length > 6}
     
