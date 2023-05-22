@@ -10,8 +10,12 @@ const Cart = (props) => {
   const totalAmount = `$${cartCtx.totalAmount.toFixed(2)}`;
   const hasItem = cartCtx.items.length > 0;
 
-  const cartItemRemoveHandler = (id) => {};
-  const cartItemAddHandler = (item) => {};
+  const cartItemRemoveHandler = (id) => {
+    cartCtx.removeItem(id)
+  };
+  const cartItemAddHandler = (item) => {
+    cartCtx.addItem({...item,amount:1})
+  };
 
   const cartItems = (
     <ul className={classes["cart-items"]}>
@@ -23,7 +27,7 @@ const Cart = (props) => {
           price={item.price}
           // 이렇게 하면 추가되거나 삭제된 항목의 id가 remove 핸들러로 전달
           onRemove={cartItemRemoveHandler.bind(null,item.id)}
-          onAdd = {cartItemAddHandler.bind(null,item.id)}
+          onAdd = {cartItemAddHandler.bind(null,item)}
         />
       ))}
     </ul>
