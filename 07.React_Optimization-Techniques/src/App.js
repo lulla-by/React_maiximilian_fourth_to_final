@@ -23,14 +23,20 @@ function App() {
 
 
   const allowToggleHandler = () =>{
-    setAllowToggle(true)
+    if(allowToggle === true) {
+      console.log("setAllowToggle을 false로")
+      setAllowToggle(!allowToggle)
+    } else {
+      console.log("setAllowToggle을 true로")
+      setAllowToggle(!allowToggle)
+    }
   }
   return (
     <div className="app">
       <h1>Hi there!</h1>
      <DemoOutput show={showParagraph}/>
       <Button onClick={allowToggleHandler} >Allow Toggling!</Button>
-      <Button onClick={toggleParagraphHandler} >Show Paragraph!</Button>
+      {allowToggle && <Button onClick={toggleParagraphHandler} >Show Paragraph!</Button>}
     </div>
   );
 }
