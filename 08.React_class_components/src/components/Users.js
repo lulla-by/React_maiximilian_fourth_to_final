@@ -17,6 +17,17 @@ class Users extends Component {
       moreState: "Test",
     };
   }
+
+  componentDidUpdate(){
+    // try{
+    //   someCodeWhichMightFail()
+    // }catch(err){
+    //   //handle error
+    // }
+    if(this.props.users.length === 0){
+      throw new Error("No users provided")
+    }
+  }
   toggleUsersHandler() {
     this.setState((curState) => {
       // console.log(curState)
