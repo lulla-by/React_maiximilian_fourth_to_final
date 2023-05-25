@@ -13,10 +13,18 @@ class UserFinder extends Component {
   constructor() {
     super();
     this.state = {
-      filteredUsers: DUMMY_USERS,
+      filteredUsers:[],
       searchTerm: "",
     };
   }
+
+
+  // useEffect에서 의존성없이 호출하는것을 대체 => useEffect(()=>{},[])
+  componentDidMount(){
+    // Send http request
+    this.setState({filteredUsers:DUMMY_USERS})
+  }
+
   componentDidUpdate(prevProps,prevState) {
     // 상태변화로 컴포넌트가 재평가되게 되면 자동적으로 호출
     // useEffect의 역할
