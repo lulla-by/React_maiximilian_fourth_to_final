@@ -50,8 +50,8 @@ function App() {
     fetchMoviesHandler();
   }, [fetchMoviesHandler]);
 
-  async function addMovieHandler(movie) {
-   const response =  await fetch(process.env.REACT_APP_URL,{
+   function addMovieHandler(movie) {
+  fetch(process.env.REACT_APP_URL,{
       method:"POST",
       body:JSON.stringify(movie),
       headers:{
