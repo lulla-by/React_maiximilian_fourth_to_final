@@ -9,30 +9,21 @@ function App() {
 
   const [tasks, setTasks] = useState([]);
 
-  const transformTasks = (tasksObj) => {
-    const loadedTasks = [];
-// console.log(tasksObj)
-    for (const taskKey in tasksObj) {
-      loadedTasks.push({ id: taskKey, text: tasksObj[taskKey].text });
-    }
-// console.log(loadedTasks)
-    setTasks(loadedTasks);
-  };
-
-  // console.log(tasks)
-
-  const {isLoading,error,sendRequest: fetchTasks} = useHttp(
-    {
-      url: process.env.REACT_APP_URL,
-    },
-    transformTasks
-  );
-
-  // console.log(fetchTasks);
+  const {isLoading,error,sendRequest: fetchTasks} = useHttp();
 
   useEffect(() => {
-    fetchTasks();
-  }, []);
+    const transformTasks = (tasksObj) => {
+      const loadedTasks = [];
+      for (const taskKey in tasksObj) {
+        loadedTasks.push({ id: taskKey, text: tasksObj[taskKey].text });
+      }
+      setTasks(loadedTasks);
+    }
+  
+    fetchTasks(
+      {url: process.env.REACT_APP_URL},transformTasks);
+
+  }, [fetchTasks]);
 
   const taskAddHandler = (task) => {
     setTasks((prevTasks) => prevTasks.concat(task));
