@@ -1,9 +1,11 @@
-import { useState} from "react";
+import { useState, useEffect } from "react";
 
 const SimpleInput = (props) => {
   const [enteredName, setEnteredName] = useState("");
   // 사용자가 입력란에 입력해서 enteredName이 있는지를 확인, 초기값을 falsfe로 설정
   const [enteredNameTouched, setEnteredNameTouched] = useState(false);
+
+  const [formIsValid, setFormIsValid] = useState(false);
 
   // 우리가 해야할 것: 1.입력값이 유효한지, 2. 사용자가 입력창을 건드렸는지,
   // 값이 유효하지 않고 입력창을 건드렸다면 => 사용자에게 에러 보여줌
@@ -14,6 +16,15 @@ const SimpleInput = (props) => {
 
   // 입력창이 건드려진 뒤 + 값이 유효하지 않을때만 유효하지않게 판단
   const nameInputIsInValid = !enteredNameIsValid && enteredNameTouched;
+
+  useEffect(() => {
+    if (enteredNameIsValid) {
+      setFormIsValid(true);
+    } else {
+      setFormIsValid(false);
+    }
+  }, [enteredNameIsValid]);
+
 
   const nameInputChangeHandler = (e) => {
     setEnteredName(e.target.value);
@@ -33,7 +44,7 @@ const SimpleInput = (props) => {
     }
 
     setEnteredName("");
-    setEnteredNameTouched(false)
+    setEnteredNameTouched(false);
   };
 
   // nameInputIsInvalid가 true일때 적용되고 그렇지 않을 때 적용되지 않도록
@@ -57,7 +68,7 @@ const SimpleInput = (props) => {
         )}
       </div>
       <div className="form-actions">
-        <button>Submit</button>
+        <button disabled={!formIsValid}>Submit</button>
       </div>
     </form>
   );
