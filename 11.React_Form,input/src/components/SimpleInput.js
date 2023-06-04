@@ -14,9 +14,21 @@ const SimpleInput = (props) => {
       console.log("Name input is valid!")
     }
   },[enteredNameIsValid])
+
+
   const nameInputChangeHandler = (e) => {
     setEnteredName(e.target.value);
   };
+
+
+  const nameInputBlurHandeler=(e)=>{
+    setEnteredNameTouched(true);
+    if (enteredName.trim() === "") {
+      setEnteredNameIsValid(false);
+      return;
+    }
+  }
+
 
   const formSubmissionHandler = (e) => {
     e.preventDefault();
@@ -39,6 +51,8 @@ const SimpleInput = (props) => {
  
   // nameInputIsInvalid가 true일때 적용되고 그렇지 않을 때 적용되지 않도록
   const nameInputClasses = nameInputIsInValid ? "form-control invalid":"form-control"
+
+
   return (
     <form onSubmit={formSubmissionHandler}>
       <div className={nameInputClasses}>
@@ -47,6 +61,7 @@ const SimpleInput = (props) => {
           // ref={nameInputRef}
           value={enteredName}
           onChange={nameInputChangeHandler}
+          onBlur={nameInputBlurHandeler}
           type="text"
           id="name"
         />
