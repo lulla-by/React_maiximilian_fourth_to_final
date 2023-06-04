@@ -18,6 +18,12 @@ const SimpleInput = (props) => {
 
   const nameInputChangeHandler = (e) => {
     setEnteredName(e.target.value);
+    // 조건문에 e.target.value를 넣는 이유
+    // 비록 setEnteredName으로 업데이트하고 있으나
+    // 이러한 상태들은 리액트에서 비동기적으로 처리되므로 즉각적으로 반영되지 않음
+    if (e.target.value.trim() !== "") {
+      setEnteredNameIsValid(true);
+    }
   };
 
 
@@ -25,7 +31,6 @@ const SimpleInput = (props) => {
     setEnteredNameTouched(true);
     if (enteredName.trim() === "") {
       setEnteredNameIsValid(false);
-      return;
     }
   }
 
