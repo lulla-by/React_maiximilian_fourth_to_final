@@ -48,7 +48,7 @@ const SimpleInput = (props) => {
       <div className={nameInputClasses}>
         <label htmlFor="name">Your Name</label>
         <input
-          defaultValue={enteredName}
+          value={enteredName}
           onChange={nameChangeHandler}
           onBlur={nameBlurHandler}
           type="text"
