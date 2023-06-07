@@ -25,7 +25,7 @@ const SimpleInput = (props) => {
 
   let formIsValid = false;
 
-  if (enteredNameIsValid & enteredEmailIsValid) {
+  if (enteredNameIsValid && enteredEmailIsValid) {
     formIsValid = true;
   }
 
@@ -91,7 +91,7 @@ const SimpleInput = (props) => {
           value={enteredEmail}
           onChange={nameInputChangeHandler}
           onBlur={nameInputBlurHandeler}
-          type="text"
+          type="email"
           id="email"
         />
         {emailInputIsInValid && (
