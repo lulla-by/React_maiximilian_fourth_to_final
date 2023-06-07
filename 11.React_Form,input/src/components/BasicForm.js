@@ -1,5 +1,8 @@
 import useInput from "../hooks/use-input";
 
+const isNotEmpty = value=>value.trim() !== "";
+const isEmail = value => value.includes("@");
+
 const BasicForm = (props) => {
   const {
     value: enteredFirstName,
@@ -8,7 +11,7 @@ const BasicForm = (props) => {
     valueChangeHandler: firstNameChnageHandler,
     inputBlurHandeler: firstNameBlurHandeler,
     reset: firstNameReset,
-  } = useInput((value) => value.trim() !== "");
+  } = useInput(isNotEmpty);
   const {
     value: enteredLastName,
     isValid: lastNameIsValid,
@@ -16,7 +19,7 @@ const BasicForm = (props) => {
     valueChangeHandler: lastNameChnageHandler,
     inputBlurHandeler: lastNameBlurHandeler,
     reset: lastNameReset,
-  } = useInput((value) => value.trim() !== "");
+  } = useInput(isNotEmpty);
   const {
     value: enteredEmail,
     isValid: emailIsValid,
@@ -24,7 +27,7 @@ const BasicForm = (props) => {
     valueChangeHandler: emailChnageHandler,
     inputBlurHandeler: emailBlurHandeler,
     reset: emailReset,
-  } = useInput((value) => value.includes("@"));
+  } = useInput(isEmail);
 
   let formIsValid = false;
 
@@ -35,7 +38,7 @@ const BasicForm = (props) => {
   const formSubmissionHandler = (e) => {
     e.preventDefault();
 
-    if (!firstNameIsValid || !lastNameIsValid || !emailIsValid) {
+    if (!formIsValid) {
       return;
     }
     // console.log(enteredFirstName)
