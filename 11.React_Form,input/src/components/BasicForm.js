@@ -38,9 +38,9 @@ const BasicForm = (props) => {
     if (!firstNameIsValid || !lastNameIsValid || !emailIsValid) {
       return;
     }
-    console.log(enteredFirstName)
-    console.log(enteredLastName)
-    console.log(enteredEmail)
+    // console.log(enteredFirstName)
+    // console.log(enteredLastName)
+    // console.log(enteredEmail)
     firstNameReset()
     lastNameReset()
     emailReset()
