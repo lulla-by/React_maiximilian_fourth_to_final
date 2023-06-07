@@ -41,9 +41,7 @@ const BasicForm = (props) => {
     if (!formIsValid) {
       return;
     }
-    // console.log(enteredFirstName)
-    // console.log(enteredLastName)
-    // console.log(enteredEmail)
+    
     firstNameReset()
     lastNameReset()
     emailReset()
