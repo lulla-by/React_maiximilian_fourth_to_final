@@ -23,13 +23,13 @@ const Checkout = (props) => {
 
     const enteredName = nameInput.current.value;
     const enteredStreet = streetInput.current.value;
-    const enteredPostal = postalInput.current.value;
+    const enteredPostalCode = postalInput.current.value;
     const enteredCity = cityInput.current.value;
 
     const enteredNameIsValid = isEmpty(enteredName);
     const enteredStreetIsValid = isEmpty(enteredStreet);
     const enteredCityIsValid = isEmpty(enteredCity);
-    const enteredPostalIsValid = isFiveChars(enteredPostal);
+    const enteredPostalIsValid = isFiveChars(enteredPostalCode);
 
     // 여러 필드의 유효성에 대한 정보를 줌
     setFormInputValidity({
@@ -51,6 +51,13 @@ const Checkout = (props) => {
     }
 
     //submit cart data
+
+    props.onConfirm({
+      name:enteredName,
+      street:enteredStreet,
+      postalCode:enteredPostalCode,
+      city:enteredCity
+    })
   };
 
   const nameControlClasses = `${classes.control} ${
