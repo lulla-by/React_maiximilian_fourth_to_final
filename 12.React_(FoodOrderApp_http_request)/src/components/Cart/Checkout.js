@@ -44,7 +44,7 @@ const Checkout = (props) => {
       enteredStreetIsValid &&
       enteredCityIsValid &&
       enteredPostalIsValid;
-    console.log(formIsValid);
+    // console.log(formIsValid);
 
     if (!formIsValid) {
       return;
