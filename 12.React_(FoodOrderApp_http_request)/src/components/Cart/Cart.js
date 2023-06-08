@@ -82,10 +82,12 @@ const Cart = (props) => {
       {!isCheckout && modalActions}
     </Fragment>
   );
-
+  const isSubmittingModalContent = <p>Sending order data...</p>;
+  
   return (
     <Modal onClose={props.onClose}>
-     {cartModalContent}
+      {!isSubmitting && cartModalContent}
+      {isSubmitting && isSubmittingModalContent}
     </Modal>
   );
 };
