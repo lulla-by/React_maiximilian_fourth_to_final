@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useState, Fragment } from "react";
 
 import Modal from "../UI/Modal";
 import CartItem from "./CartItem";
@@ -8,6 +8,9 @@ import Checkout from "./Checkout";
 
 const Cart = (props) => {
   const [isCheckout, setIsCheckout] = useState(false);
+  // 제출상태 다루기
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [didSubmit, setDidSubmit] = useState(false);
   const cartCtx = useContext(CartContext);
 
   const totalAmount = `$${cartCtx.totalAmount.toFixed(2)}`;
@@ -25,15 +28,18 @@ const Cart = (props) => {
     setIsCheckout(true);
   };
 
-  const submitOrderHandelr = (userData)=>{
-    fetch(`${process.env.REACT_APP_URL}orders.json`,{
-    method:"POST",
-    body:JSON.stringify({
-      user:userData,
-      orderdItems:cartCtx.items
-    })
-   })
-  }
+  const submitOrderHandelr = async (userData) => {
+    setIsSubmitting(true);
+    await fetch(`${process.env.REACT_APP_URL}orders.json`, {
+      method: "POST",
+      body: JSON.stringify({
+        user: userData,
+        orderdItems: cartCtx.items,
+      }),
+    });
+    setIsSubmitting(false);
+    setDidSubmit(true);
+  };
 
   const cartItems = (
     <ul className={classes["cart-items"]}>
@@ -63,15 +69,23 @@ const Cart = (props) => {
     </div>
   );
 
-  return (
-    <Modal onClose={props.onClose}>
+  const cartModalContent = (
+    <Fragment>
       {cartItems}
       <div className={classes.total}>
         <span>Total Amount</span>
         <span>{totalAmount}</span>
       </div>
-      {isCheckout && <Checkout onConfirm={submitOrderHandelr} onCancel={props.onClose} />}
+      {isCheckout && (
+        <Checkout onConfirm={submitOrderHandelr} onCancel={props.onClose} />
+      )}
       {!isCheckout && modalActions}
+    </Fragment>
+  );
+
+  return (
+    <Modal onClose={props.onClose}>
+     {cartModalContent}
     </Modal>
   );
 };
