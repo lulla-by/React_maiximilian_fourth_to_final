@@ -6,10 +6,14 @@ import { useEffect, useState } from "react";
 const AvailableMeals = () => {
 
   const [meals, setMeals] = useState([]);
-  const [isLoading,setIsLoading]=useState(true)
+  const [isLoading,setIsLoading]=useState(true);
+  const [httpError,setHttpError]=useState();
 
   const getData = async () => {
     const resppnse = await fetch(`${process.env.REACT_APP_URL}meals.json`);
+    if(!resppnse.ok){
+      throw new Error("Something went wrong")
+    }
     const data = await resppnse.json();
     const loadedmeals = [];
     for (const key in data) {
@@ -23,14 +27,24 @@ const AvailableMeals = () => {
     setMeals(loadedmeals);
     setIsLoading(false)
   };
-
+  
   useEffect(() => {
-    getData();
+      getData().catch((error)=>{
+        setIsLoading(false)
+        setHttpError(error.message)
+      })
+  
+    
   }, []);
 
 if(isLoading){
   return <section className={classes.mealsIsLoading}>
-    <p>Loading</p>
+    <p>Loading...</p>
+  </section>
+}
+if(httpError){
+  return <section className={classes.mealsIsError}>
+<p>{httpError}</p>
   </section>
 }
   const mealsList = meals.map((meal) => (
