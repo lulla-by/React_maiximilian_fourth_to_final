@@ -83,11 +83,21 @@ const Cart = (props) => {
     </Fragment>
   );
   const isSubmittingModalContent = <p>Sending order data...</p>;
-  
+  const didSubmitModalContent =
+  <Fragment>
+    <p>Successfully sent the order!</p>
+    <div className={classes.actions}>
+      <button className={classes["button--alt"]} onClick={props.onClose}>
+        Close
+      </button>
+    </div>
+  </Fragment>
+
   return (
     <Modal onClose={props.onClose}>
-      {!isSubmitting && cartModalContent}
+      {!isSubmitting && !didSubmit && cartModalContent}
       {isSubmitting && isSubmittingModalContent}
+      {!isSubmitting && didSubmit && didSubmitModalContent}
     </Modal>
   );
 };
