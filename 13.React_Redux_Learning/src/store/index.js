@@ -7,8 +7,14 @@ let initialState = {
 
 const counterReducer = (state = initialState, action) => {
   if(action.type === "INCREMENT"){
-    return {
-      counter:state.counter + 1
+    if(action.amount){
+      return {
+        counter:state.counter + action.amount
+      }
+    }else{
+      return {
+        counter:state.counter + 1
+      }
     }
   }
   if(action.type === "DECREMENT"){
