@@ -1,6 +1,4 @@
-// 리덕스 로직 저장
-import { createStore } from "redux";
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice,configureStore } from "@reduxjs/toolkit";
 
 let initialState = {
   counter: 0,
@@ -8,7 +6,7 @@ let initialState = {
 };
 
 // 전역상태의 slice를 미리 만들기
-createSlice({
+const counterSlice = createSlice({
   name: "counter",
   initialState,
   reducers: {
@@ -27,35 +25,10 @@ createSlice({
   },
 });
 
-const counterReducer = (state = initialState, action) => {
-  if (action.type === "INCREMENT") {
-    if (action.amount) {
-      return {
-        counter: state.counter + action.amount,
-        showCounter: state.showCounter,
-      };
-    } else {
-      return {
-        counter: state.counter + 1,
-        showCounter: state.showCounter,
-      };
-    }
-  }
-  if (action.type === "DECREMENT") {
-    return {
-      counter: state.counter - 1,
-      showCounter: state.showCounter,
-    };
-  }
-  if (action.type === "TOGGLE") {
-    return {
-      showCounter: !state.showCounter,
-      counter: state.counter,
-    };
-  }
-  return state;
-};
-
-const store = createStore(counterReducer);
+// 무엇을 사용하든, 리덕스에는 전역 상태를 담당하는 단 하나의 주요 리듀서 함수만 있어야 함
+//configureStore에서는 리듀서의 값이 단일 리듀서가 될 수 있음
+const store = configureStore({
+  reducer:counterSlice.reducer
+} );
 
 export default store;
