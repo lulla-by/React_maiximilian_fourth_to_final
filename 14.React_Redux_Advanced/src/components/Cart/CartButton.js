@@ -3,17 +3,17 @@ import classes from "./CartButton.module.css";
 import { uiAcitons } from "../../store/ui-slice";
 
 const CartButton = (props) => {
-  const data = useSelector((state) => state.cart.item);
+  const totalQuntity = useSelector((state) => state.cart.totalQuntity);
   const dispatch = useDispatch();
 
-  const showCartHandler = () => {
+  const toggleCartHandler = () => {
     dispatch(uiAcitons.toggle());
   };
 
   return (
-    <button onClick={showCartHandler} className={classes.button}>
+    <button onClick={toggleCartHandler} className={classes.button}>
       <span>My Cart</span>
-      <span className={classes.badge}>{data}</span>
+      <span className={classes.badge}>{totalQuntity}</span>
     </button>
   );
 };

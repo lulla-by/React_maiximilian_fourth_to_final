@@ -3,32 +3,32 @@ import classes from './CartItem.module.css';
 import { useSelector,useDispatch } from 'react-redux';
 
 const CartItem = (props) => {
-  const { title, quantity, total, price } = props.item;
+  const { id,title, quantity, total, price } = props.item;
 
-  const data = useSelector(state=>state.cart.item)
+  // const data = useSelector((state) => state.cart.totalQuntity);
   const dispatch = useDispatch()
 
   const addHandeler = ()=>{
-    dispatch(cartActions.add())
+    dispatch(cartActions.addItemToCart({id,title,quantity,price}));
   }
   const removeHandeler = ()=>{
-    dispatch(cartActions.remove())
+    dispatch(cartActions.removeItemFromCart(id));
   }
 
-  const totalPay = data*6
+  // const totalPay = data*6
 
   return (
     <li className={classes.item}>
       <header>
         <h3>{title}</h3>
         <div className={classes.price}>
-          ${totalPay.toFixed(2)}{' '}
+          ${total.toFixed(2)}{' '}
           <span className={classes.itemprice}>(${price.toFixed(2)}/item)</span>
         </div>
       </header>
       <div className={classes.details}>
         <div className={classes.quantity}>
-          x <span>{data}</span>
+          x <span>{quantity}</span>
         </div>
         <div className={classes.actions}>
           <button onClick={removeHandeler}>-</button>
