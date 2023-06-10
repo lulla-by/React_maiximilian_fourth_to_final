@@ -1,6 +1,6 @@
 import { cartActions } from '../../store/cart';
 import classes from './CartItem.module.css';
-import { useSelector,useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 const CartItem = (props) => {
   const { id,title, quantity, total, price } = props.item;
