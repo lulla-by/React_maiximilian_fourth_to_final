@@ -1,14 +1,13 @@
-import React from 'react'
-import {Link} from 'react-router-dom'
-import Products from './Products'
+import React from "react";
+import { Link } from "react-router-dom";
 export const Home = () => {
   return (
     <>
-    <h1>Home</h1>
-    <Link to="/products"> 
-    <p>Go to the list of products</p>
-    </Link>
+      <h1>Home</h1>
+      <p>
+        Go to
+        <Link to="/products"> the list of products</Link>
+      </p>
     </>
-  )
-}
- 
+  );
+};
