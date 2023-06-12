@@ -1,24 +1,30 @@
-import React from "react";
-import { Link} from "react-router-dom";
+import { useEffect, useState } from 'react';
 
-const DUMMY = [
-  { id: "0", title: "0번째" },
-  { id: "1", title: "1번째" },
-  { id: "2", title: "2번째" },
-];
+import EventsList from '../components/EventsList';
 
-const EventsPage = () => {
+function EventsPage() {
+  const [isLoading, setIsLoading] = useState(false);
+  const [fetchedEvents, setFetchedEvents] = useState();
+  const [error, setError] = useState();
+
+  useEffect(() => {
+    async function fetchEvents() {
+      setIsLoading(true);
+
+      setIsLoading(false);
+    }
+
+    fetchEvents();
+  }, []);
   return (
-    <ul>
-      {DUMMY.map((event) => (
-        <li  key={event.id}>
-          <Link to={`${event.id}`}>
-            {event.title}
-          </Link>
-        </li>
-      ))}
-    </ul>
+    <>
+      <div style={{ textAlign: 'center' }}>
+        {isLoading && <p>Loading...</p>}
+        {error && <p>{error}</p>}
+      </div>
+      {!isLoading && fetchedEvents && <EventsList events={fetchedEvents} />}
+    </>
   );
-};
+}
 
 export default EventsPage;

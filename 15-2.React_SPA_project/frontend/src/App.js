@@ -2,11 +2,11 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import RootLayout from "./pages/Root";
 import HomePage from "./pages/Home";
-import EventsPage from './pages/Events';
-import EventDetailPage from './pages/EventDetail';
-import NewEventPage from './pages/NewEvent';
-import EditEventPage from './pages/EditEvent';
-import EventRootLayout from './pages/EventRoot';
+import EventsPage from "./pages/Events";
+import EventDetailPage from "./pages/EventDetail";
+import NewEventPage from "./pages/NewEvent";
+import EditEventPage from "./pages/EditEvent";
+import EventRootLayout from "./pages/EventRoot";
 
 // 1. Add five new (dummy) page components (content can be simple <h1> elements)
 //    - HomePage
@@ -35,13 +35,30 @@ function App() {
       element: <RootLayout />,
       children: [
         { path: "", element: <HomePage /> },
-        {path:"events", element:<EventRootLayout/>,children:[
-          {index:true, element: <EventsPage /> },
-          { path: ":eventId", element: <EventDetailPage /> },
-          { path: ":eventId/edit", element: <EditEventPage /> },
-          { path: "new", element: <NewEventPage /> },
-        ]},
-    ],
+        {
+          path: "events",
+          element: <EventRootLayout />,
+          children: [
+            {
+              index: true,
+              element: <EventsPage />,
+              loader: async () => {
+                const response = await fetch("http://localhost:8080/events");
+                if (!response.ok) {
+                  // ...
+                } else {
+                  const resData = await response.json();
+                  console.log(resData)
+                  return resData.events;
+                }
+              },
+            },
+            { path: ":eventId", element: <EventDetailPage /> },
+            { path: ":eventId/edit", element: <EditEventPage /> },
+            { path: "new", element: <NewEventPage /> },
+          ],
+        },
+      ],
     },
   ]);
   return <RouterProvider router={router} />;
