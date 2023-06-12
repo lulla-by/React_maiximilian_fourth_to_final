@@ -14,7 +14,7 @@ const router = createBrowserRouter([
     errorElement:<ErrorPage />,
     children: [
       // 이 두 라우트의 정의를 RootLayout의 자녀로 만들게 됨
-      { path: "", element: <HomePage /> },
+      { index:true, element: <HomePage /> },
       { path: "products", element: <ProductsPage /> },
       { path: "products/:productId", element: <ProductDetailPage /> },
     ],
