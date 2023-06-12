@@ -8,15 +8,15 @@ import ProductDetailPage from "./pages/ProductDetail";
 const router = createBrowserRouter([
   {
     // Home과 Products의 부모 라우트 역할
-    path: "/",
+    path: "/root",
     element: <RootLayout />,
     // 오류가 발생하면 이 라우트에 대해 폴백 페이지로서 ErrorPage를 렌더링
     errorElement:<ErrorPage />,
     children: [
       // 이 두 라우트의 정의를 RootLayout의 자녀로 만들게 됨
-      { path: "/", element: <HomePage /> },
-      { path: "/products", element: <ProductsPage /> },
-      { path: "/products/:productId", element: <ProductDetailPage /> },
+      { path: "", element: <HomePage /> },
+      { path: "products", element: <ProductsPage /> },
+      { path: "products/:productId", element: <ProductDetailPage /> },
     ],
   },
 ]);
