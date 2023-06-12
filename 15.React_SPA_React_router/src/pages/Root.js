@@ -8,7 +8,7 @@ const RootLayout = () => {
     <>
     <MainNavigation/>
     {/* 자녀 라우트 요소들이 렌더링 되어야 할 장소를 표시하는 역할 */}
-    <main className={classes.content}>
+    <main>
     <Outlet/>
     </main>
     </>
