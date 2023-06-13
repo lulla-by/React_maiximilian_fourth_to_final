@@ -1,20 +1,24 @@
-import { useNavigate } from "react-router-dom";
+import { Form, useNavigate } from "react-router-dom";
 
 import classes from "./EventForm.module.css";
 
 function EventForm({ method, event }) {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   function cancelHandler() {
-    navigate("..");
+    // navigate("..");
   }
 
   return (
-    <form className={classes.form}>
+    // react-router-dom이 제공하는 특수한 Form으로 변경
+    // 백엔드로 요청을 전송하는 브라우저 기본값을 생략하게 만들고
+    // 대신 전송되었을 그 요청을 받아서 액션에 주게 됨
+    <Form method="post" className={classes.form}>
       <p>
         <label htmlFor="title">Title</label>
         <input
           id="title"
           type="text"
+          // name 데이터 추출을 위해 모든 input에 name이 있는지 확인
           name="title"
           required
           defaultValue={event ? event.title : ""}
@@ -56,7 +60,7 @@ function EventForm({ method, event }) {
         </button>
         <button>Save</button>
       </div>
-    </form>
+    </Form>
   );
 }
 
