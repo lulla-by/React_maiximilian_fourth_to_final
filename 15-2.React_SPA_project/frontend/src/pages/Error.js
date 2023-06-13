@@ -9,7 +9,7 @@ const ErrorPage = () => {
 
   //  유효하지 않은 주소를 입력할 경우
   if (error.status === 500) {
-    message = JSON.parse(error.data).message;
+    message = error.data.message;
   }
 
   // /events를 방문해서 오류가 날 경우
