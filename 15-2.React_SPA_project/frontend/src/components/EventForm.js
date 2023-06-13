@@ -1,8 +1,10 @@
-import { Form, useNavigate, useNavigation } from "react-router-dom";
+import { Form, useActionData, useNavigate, useNavigation } from "react-router-dom";
 
 import classes from "./EventForm.module.css";
 
 function EventForm({ method, event }) {
+  // 가장 가까운 action에 대한 access
+  const data = useActionData();
   const navigate = useNavigate();
   const navigation = useNavigation();
 
@@ -17,6 +19,10 @@ function EventForm({ method, event }) {
     // 백엔드로 요청을 전송하는 브라우저 기본값을 생략하게 만들고
     // 대신 전송되었을 그 요청을 받아서 액션에 주게 됨
     <Form method="post" className={classes.form}>
+      {data && data.errors &&<ul>
+        {Object.values(data.errors).map(err =>(
+          <li key={err}>{err}</li>
+        ))}</ul>}
       <p>
         <label htmlFor="title">Title</label>
         <input

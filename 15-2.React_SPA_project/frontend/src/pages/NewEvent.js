@@ -3,9 +3,6 @@ import EventForm from './../components/EventForm';
 import { json, redirect } from 'react-router-dom';
 
 const NewEventPage = () => {
-  const submitHandelr = (e) =>{
-    e.preventDefault()
-  }
   return (
     <EventForm/>
   )
@@ -14,24 +11,27 @@ const NewEventPage = () => {
 export default NewEventPage;
 
 export async function action ({request,params}){
-  console.log(request)
+  // console.log(request)
   const data = await request.formData();
-  console.log(data)
+  // console.log(data)
   const eventData = {
     title:data.get('title'),
     image:data.get('image'),
     date:data.get('date'),
     description:data.get('description'),
   }
-  console.log(eventData)
+  // console.log(eventData)
   const response = await fetch(`http://localhost:8080/events`,{
     method:"POST",
     headers:{
-     "Content-Type":'application/json' 
+      "Content-Type":'application/json' 
     },
     body:JSON.stringify(eventData)
   })
-
+  
+  if(response.status === 422){
+    return response;
+  }
   console.log(response)
 
   if(!response.ok){
