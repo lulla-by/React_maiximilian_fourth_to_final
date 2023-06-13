@@ -1,4 +1,4 @@
-import { Form, useActionData, useNavigate, useNavigation } from "react-router-dom";
+import { Form, json, redirect, useActionData, useNavigate, useNavigation } from "react-router-dom";
 
 import classes from "./EventForm.module.css";
 
@@ -18,7 +18,7 @@ function EventForm({ method, event }) {
     // react-router-dom이 제공하는 특수한 Form으로 변경
     // 백엔드로 요청을 전송하는 브라우저 기본값을 생략하게 만들고
     // 대신 전송되었을 그 요청을 받아서 액션에 주게 됨
-    <Form method="post" className={classes.form}>
+    <Form method={method} className={classes.form}>
       {data && data.errors &&<ul>
         {Object.values(data.errors).map(err =>(
           <li key={err}>{err}</li>
@@ -75,3 +75,38 @@ function EventForm({ method, event }) {
 }
 
 export default EventForm;
+
+export async function action ({request,params}){
+  // console.log(request)
+  const method = request.method;
+  const data = await request.formData();
+  // console.log(data)
+  const eventData = {
+    title:data.get('title'),
+    image:data.get('image'),
+    date:data.get('date'),
+    description:data.get('description'),
+  }
+  // console.log(eventData)
+  let url = `http://localhost:8080/events`
+  if(method ==="PATCH"){
+    const eventId = params.eventId;
+    url = `http://localhost:8080/events/` + eventId;
+  }
+  const response = await fetch(url,{
+    method,
+    headers:{
+      "Content-Type":'application/json' 
+    },
+    body:JSON.stringify(eventData)
+  })
+  
+  if(response.status === 422){
+    return response;
+  }
+
+  if(!response.ok){
+    throw json({message:"Could not save event"},{status:500})
+  }
+  return redirect("/events")
+}

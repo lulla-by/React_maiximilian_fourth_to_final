@@ -1,5 +1,7 @@
-import { NavLink } from "react-router-dom";
-import classes from "./MainNavigation.module.css";
+import { NavLink } from 'react-router-dom';
+
+import classes from './MainNavigation.module.css';
+import NewsletterSignup from './NewsletterSignup';
 
 function MainNavigation() {
   return (
@@ -10,26 +12,36 @@ function MainNavigation() {
             <NavLink
               to="/"
               className={({ isActive }) =>
-              isActive ? classes.active : undefined
-            }
-            end
-            //  /events에 있어도 활성화 되지 않게 하기 위해 end추가
+                isActive ? classes.active : undefined
+              }
+              end
             >
               Home
             </NavLink>
           </li>
           <li>
             <NavLink
-              className={({ isActive }) =>
-              isActive ? classes.active : undefined
-              }
               to="/events"
+              className={({ isActive }) =>
+                isActive ? classes.active : undefined
+              }
             >
               Events
             </NavLink>
           </li>
+          <li>
+            <NavLink
+              to="/newsletter"
+              className={({ isActive }) =>
+                isActive ? classes.active : undefined
+              }
+            >
+              Newsletter
+            </NavLink>
+          </li>
         </ul>
       </nav>
+      <NewsletterSignup />
     </header>
   );
 }
