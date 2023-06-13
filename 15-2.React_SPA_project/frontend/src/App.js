@@ -3,9 +3,11 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import RootLayout from "./pages/Root";
 import HomePage from "./pages/Home";
 import EventsPage, { loader as eventLoader } from "./pages/Events";
-import { loader as eventDetailLoader } from "./pages/EventDetail";
-import EventDetailPage from "./pages/EventDetail";
-import NewEventPage,{action as newEventAction} from "./pages/NewEvent";
+import EventDetailPage, {
+  loader as eventDetailLoader,
+  action as deleteEventAction,
+} from "./pages/EventDetail";
+import NewEventPage, { action as newEventAction } from "./pages/NewEvent";
 import EditEventPage from "./pages/EditEvent";
 import EventRootLayout from "./pages/EventRoot";
 import ErrorPage from "./pages/Error";
@@ -35,16 +37,17 @@ function App() {
               // 특수한 키값
               id: "event-detail",
               children: [
-                // 로더가 설정된 상위 라우트에 id라는 특수한 키캆 설정이 되어있으면 
+                // 로더가 설정된 상위 라우트에 id라는 특수한 키캆 설정이 되어있으면
                 // 라우트에서 더 높은 수준의 loader에 useRouteLoaderDate("키값")로 접근 가능
                 {
                   index: true,
                   element: <EventDetailPage />,
+                  action:deleteEventAction,
                 },
                 { path: "edit", element: <EditEventPage /> },
               ],
             },
-            { path: "new", element: <NewEventPage />,action:newEventAction },
+            { path: "new", element: <NewEventPage />, action: newEventAction },
           ],
         },
       ],
