@@ -8,7 +8,7 @@ function AuthForm() {
   const data = useActionData();
 
   const navigation = useNavigation()
-  console.log(navigation)
+  // console.log(navigation)
   const isSubmitting = navigation.state ==="submitting"
 
   // 현재 설정된 쿼리 매개변수에 쉽게 접근할 수 있는 훅
