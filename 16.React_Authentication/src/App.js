@@ -16,6 +16,7 @@ import NewsletterPage, { action as newsletterAction } from "./pages/Newsletter";
 import AuthenticationPage, {
   action as authAction,
 } from "./pages/Authentication";
+import {action as logoutAction} from './pages/Logout'
 
 const router = createBrowserRouter([
   {
@@ -62,7 +63,10 @@ const router = createBrowserRouter([
         path: "newsletter",
         element: <NewsletterPage />,
         action: newsletterAction,
-      },
+      },{
+        // 컴포넌트를 구성한것은 아니여서 element를 리턴하지 않고 액션만 설정
+        path:"logout",action:logoutAction
+      }
     ],
   },
 ]);
