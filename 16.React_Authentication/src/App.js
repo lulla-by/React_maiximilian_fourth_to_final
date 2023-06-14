@@ -17,7 +17,7 @@ import AuthenticationPage, {
   action as authAction,
 } from "./pages/Authentication";
 import {action as logoutAction} from './pages/Logout'
-import { tokenLoader } from "./utils/auth";
+import { checkAuthLoader, tokenLoader } from "./utils/auth";
 
 const router = createBrowserRouter([
   {
@@ -48,17 +48,21 @@ const router = createBrowserRouter([
                 element: <EventDetailPage />,
                 action: deleteEventAction,
               },
+              // 로그인 상태가 아니라면 접근 x
               {
                 path: "edit",
                 element: <EditEventPage />,
                 action: manipulateEventAction,
+                loader:checkAuthLoader
               },
             ],
           },
+          // 로그인 상태가 아니라면 접근 x
           {
             path: "new",
             element: <NewEventPage />,
             action: manipulateEventAction,
+            loader:checkAuthLoader
           },
         ],
       },
