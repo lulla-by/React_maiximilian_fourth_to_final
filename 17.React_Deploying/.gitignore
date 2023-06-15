@@ -23,6 +23,12 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+**/.firebaserc
+
+build/
+
+hosting.YnVpbGQ.cache
+
 
 # db
 db.json
