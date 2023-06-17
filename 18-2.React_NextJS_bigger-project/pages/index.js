@@ -12,9 +12,7 @@ function HomePage() {
   ]
 
   return (
-    <>
     <MeetupList meetups={DUMMY_MEETUPS}/>
-    </>
   );
 }
 
