@@ -38,7 +38,15 @@ export async function getStaticProps(){
   props:{
     //props라는 키가 있어야 함 => 페이지 컴포넌트의 props를 여기서 설정
     meetups: DUMMY_MEETUPS
-  }
+  },
+  // 몇초 간격으로 생성
+  revalidate:10
  }
 }
+
+// getStaticProps의 단점
+// 이 데이터에 최신정보는 없을 수 있음 => 빌드 단계에서 프로세스에서 생성되기 때문에
+//  데이터베이스에 더 많은 정보를 추가해도 이 사전에 생성된 페이지는 모를것 
+// 클라이언트쪽에더 데이터를 가져오지 않는다면 항상 예전 모임만 보게 되는 것
+//데이터가 자주 변한다면 반환된 객체에 revalidate를 추가하여 점진적 정적 생성이라는 기능 사용
 export default HomePage;
