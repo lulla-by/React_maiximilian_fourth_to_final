@@ -19,16 +19,26 @@ const DUMMY_MEETUPS = [
   },
 ];
 
-function HomePage() {
-  const [loadedData, setLoadedData] = useState([]);
-  useEffect(() => {
-    // DUMMY_MEETUPS를 백엔드에 http요청하여 가져온다고 가정
-    setLoadedData(DUMMY_MEETUPS);
-  }, []);
-  return <MeetupList meetups={loadedData} />;
-  // 렌더링한 결과는 같을 것. 다만 useEffect는 사이드이펙트로서 컴포넌트가 한번 실행된 다음에 실행되는 부수적인 효과임
-  // 이럴경우에 NextJS가 원하는 사전렌더링이 제대로 작동되지 않음
-  // NextJS에서 제공하는 기능으로 해결가능
+function HomePage(props) {
+  console.log(props)
+  return <MeetupList meetups={props.meetups} />;
 }
 
+
+// 데이터를 기다려야 한다면, 즉 페이지 컴포넌트에 데이터를 가져와서 추가해야한다면
+// 페이지 컴포넌트 파일 안에서 특수함수를 export, pages폴더안에 있는 컴포넌트 파일들에서만 가능함
+// 반드시 getStaticProps이여야하고 NextJS는 이 이름을 가진 함수를 찾을 것
+// 컴포넌트 함수를 호출하기 전에 실행되는 함수
+// 이 함수는 실제로 이 페이지에서 사용할 props를 준비함
+export async function getStaticProps(){
+  // async를 사용하여 비동기처리 가능. NextJS는 이 promise가 해결될 때까지 기다릴 것
+ //fetch data from an API
+ return {
+  // 반드시 객체를 반환
+  props:{
+    //props라는 키가 있어야 함 => 페이지 컴포넌트의 props를 여기서 설정
+    meetups: DUMMY_MEETUPS
+  }
+ }
+}
 export default HomePage;
