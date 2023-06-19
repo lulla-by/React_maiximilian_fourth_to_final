@@ -10,12 +10,16 @@
     top: 30%;
     left: 25%;
     width: 50%;
+    /* 모든속성 전환 / 길의 정의 / 니메이션이 배포되는 방식 */
+    transition: all 0.3s ease-out;
 }
 
 
 .ModalOpen {
-    display:block;
+    opacity: 1;
+    transform: translateY(0);
 }
 .ModalClosed {
-    display:none;
+    opacity: 0;
+    transform: translateY(-100%);
 }
