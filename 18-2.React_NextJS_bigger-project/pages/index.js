@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { MongoClient } from 'mongodb';
 import MeetupList from "../components/meetups/MeetupList";
 const DUMMY_MEETUPS = [
   {
@@ -20,7 +20,7 @@ const DUMMY_MEETUPS = [
 ];
 
 function HomePage(props) {
-  return <MeetupList meetups={props.meetups} />;
+  return <MeetupList meetups={props.meetups}   />;
 }
 
 
@@ -32,11 +32,23 @@ function HomePage(props) {
 export async function getStaticProps(){
   // async를 사용하여 비동기처리 가능. NextJS는 이 promise가 해결될 때까지 기다릴 것
  //fetch data from an API
+ const client = await MongoClient.connect(process.env.REACT_MONGODB);
+ const db = client.db()
+ const meetupsCollection = db.collection('meetups');
+ // 문서의 배열을 다시 받음
+const meetups = await meetupsCollection.find().toArray()
+client.close()
  return {
   // 반드시 객체를 반환
   props:{
     //props라는 키가 있어야 함 => 페이지 컴포넌트의 props를 여기서 설정
-    meetups: DUMMY_MEETUPS
+    meetups:meetups.map(meetup=>({
+      title:meetup.title,
+      address:meetup.address,
+      image:meetup.image,
+      // 몽고db에서 생성된 임의의 id객체를 사용 가능한 문자열로
+      id:meetup._id.toString()
+    }))
   },
   // 몇초 간격으로 생성
   revalidate:10
