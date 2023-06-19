@@ -21,6 +21,7 @@ export async function getStaticPaths() {
     // false로 설정하면 유효하지 않은 페이지에 대해 404error를 보여줌
     // true로 설정하면  유효하지 않은 페이지에 대해 동적으로 페이지를 생성해서 보여줌
     paths: [
+      //paths는 array, array안에는 여러 객체가 있어야함, 동적 페이지 버전당 객체가 하나씩
       {
         params: {
           meetupId: "m1",
