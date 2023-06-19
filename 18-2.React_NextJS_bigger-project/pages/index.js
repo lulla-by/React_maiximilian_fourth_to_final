@@ -1,26 +1,37 @@
+import Head from 'next/head'
+// 페이지의 head section에 head elements를 추가하는 구성요소
 import { MongoClient } from 'mongodb';
 import MeetupList from "../components/meetups/MeetupList";
-const DUMMY_MEETUPS = [
-  {
-    id: "m1",
-    title: "first",
-    description: "firs",
-    address: "...1",
-    image:
-      "https://image.newsis.com/2022/06/01/NISI20220601_0001011091_web.jpg",
-  },
-  {
-    id: "m2",
-    title: "second",
-    description: "second",
-    address: "...2",
-    image:
-      "https://i.namu.wiki/i/VOh8auDwOK56oeXI6nmEeHjYNUJ2uW-oio5Otb-jB7PK5hxnUEvKz-8ItNsKuPSKyfJCP5I1nsn2iaSm9Z2CYA.webp",
-  },
-];
+import { Fragment } from 'react';
+// const DUMMY_MEETUPS = [
+//   {
+//     id: "m1",
+//     title: "first",
+//     description: "firs",
+//     address: "...1",
+//     image:
+//       "https://image.newsis.com/2022/06/01/NISI20220601_0001011091_web.jpg",
+//   },
+//   {
+//     id: "m2",
+//     title: "second",
+//     description: "second",
+//     address: "...2",
+//     image:
+//       "https://i.namu.wiki/i/VOh8auDwOK56oeXI6nmEeHjYNUJ2uW-oio5Otb-jB7PK5hxnUEvKz-8ItNsKuPSKyfJCP5I1nsn2iaSm9Z2CYA.webp",
+//   },
+// ];
 
 function HomePage(props) {
-  return <MeetupList meetups={props.meetups}   />;
+  return(
+<Fragment>
+<Head>
+  <title>React Meetups</title>
+  <meta name="descrition" content = "Browse a huge list of highly active React meetups!"/>
+</Head>
+  <MeetupList meetups={props.meetups}   />;
+</Fragment>
+  )
 }
 
 
