@@ -28,6 +28,13 @@ class App extends Component {
           timeout={1000}
           mountOnEnter
           unmountOnExit
+          onEnter={() => { console.log("onenetr") }}
+          onEntering={() => { console.log("entering") }}
+          onEntered={() => { console.log("onenetered") }}
+          onExit = {()=>{console.log("onexit")}}
+          onExiting = {()=>{console.log("onexiting")}}
+          onExited = {()=>{console.log("onexited")}}
+
         >
           {state => (
             <div
@@ -43,7 +50,7 @@ class App extends Component {
           )}
         </Transition>
 
-            <Modal show={this.state.modalIsOpen} closed={this.closeModal} />
+        <Modal show={this.state.modalIsOpen} closed={this.closeModal} />
 
         {this.state.modalIsOpen ? < Backdrop show={this.state.modalIsOpen} /> : null}
         <button className="Button" onClick={this.showModal}>Open Modal</button>
