@@ -12,7 +12,10 @@ const Ingredients = () => {
  const addIngredientHandler = (ingredient) =>{
   setUserIngredients((prevIngredients)=>[...prevIngredients,ingredient])
 }
-console.log(userIngredients);
+
+const removeIngredientHandler =  (ingredientId) =>{
+  setUserIngredients(prevIngredients=>prevIngredients.filter(item=>item.id !== ingredientId))
+}
   return (
     <div className="App">
       <IngredientForm onAddIngredient={addIngredientHandler}/>
@@ -20,7 +23,7 @@ console.log(userIngredients);
       <section>
         <Search />
         {/* Need to add list here! */}
-        <IngredientList ingredients={userIngredients} onRemoveItem={()=>{}}/>
+        <IngredientList ingredients={userIngredients} onRemoveItem={removeIngredientHandler}/>
       </section>
     </div>
   );

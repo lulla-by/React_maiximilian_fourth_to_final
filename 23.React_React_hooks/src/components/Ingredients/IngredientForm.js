@@ -11,6 +11,8 @@ const IngredientForm = React.memo(props => {
     event.preventDefault();
     const ingredient = {id:Math.random().toString(),title:enteredTitle,amount:enteredAmount}
     props.onAddIngredient(ingredient)
+    setEnteredTitle("");
+    setEnteredAmount("")
   };
 
   return (
